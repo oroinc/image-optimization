@@ -1,0 +1,45 @@
+system_configuration:
+    groups:
+        image_processors_settings:
+            title: oro.image_optimization.config.image_processors_settings.label
+    fields:
+        oro_image_optimization.jpeg_quality:
+            data_type: integer
+            type: Symfony\Component\Form\Extension\Core\Type\IntegerType
+            options:
+                required: true
+                label: oro.image_optimization.config.jpeg_quality
+                tooltip: oro.image_optimization.config.quality_tooltip
+                constraints:
+                    - NotBlank: ~
+                    - Type: integer
+                    - Range:
+                          min: 30
+                          max: 100
+
+        oro_image_optimization.png_quality:
+            data_type: integer
+            type: Symfony\Component\Form\Extension\Core\Type\ChoiceType
+            search_type: choice
+            options:
+                label: oro.image_optimization.config.png_quality
+                tooltip: oro.image_optimization.config.quality_tooltip
+                required: true
+                constraints:
+                    - NotBlank: ~
+                choices:
+                    oro.image_optimization.config.png_preserve_quality: 100
+                    oro.image_optimization.config.png_minimize_file_size: 35
+
+    tree:
+        system_configuration:
+            platform:
+                children:
+                    general_setup:
+                        children:
+                            attachment_settings:
+                                children:
+                                    image_processors_settings:
+                                        children:
+                                            - oro_image_optimization.jpeg_quality
+                                            - oro_image_optimization.png_quality

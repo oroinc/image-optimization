@@ -1,0 +1,12 @@
+features:
+    post_processors:
+        label: oro.image_optimization.config.feature.processors.label
+        description: oro.image_optimization.config.feature.processors.description
+        configuration:
+            - 'image_processors_settings'
+
+    post_processing:
+        label: oro.image_optimization.config.feature.processing.label
+        description: oro.image_optimization.config.feature.processing.description
+        dependencies:
+            - 'post_processors'

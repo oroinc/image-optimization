@@ -1,0 +1,27 @@
+{
+  "name": "oro/image-optimization",
+  "description": "Allows to control the quality of images using the UI. Optimizes images thereby reducing the overall storage size.",
+  "homepage": "https://github.com/oroinc/image-optimization",
+  "license": "MIT",
+  "keywords": ["Oro", "OroPlatform", "OroCommerce", "OroCRM", "Image", "Optimization"],
+  "authors": [
+    {
+      "name": "Oro, Inc",
+      "homepage": "http://www.orocrm.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"Oro\\Bundle\\ImageOptimizationBundle\\": "src/Oro/Bundle/ImageOptimizationBundle"},
+    "exclude-from-classmap": ["/Tests/"]
+  },
+  "require": {
+    "oro/platform": "4.1.*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "4.1-dev"
+    }
+  }
+}

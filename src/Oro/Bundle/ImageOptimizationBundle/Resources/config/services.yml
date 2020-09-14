@@ -1,0 +1,59 @@
+parameters:
+    liip_imagine.jpegoptim.binary: null
+    liip_imagine.pngquant.binary: null
+
+services:
+    oro_image_optimization.url_generator:
+        class: Oro\Bundle\ImageOptimizationBundle\Provider\FilterAwareUrlGenerator
+        decorates: oro_attachment.url_generator
+        arguments:
+            - '@router'
+            - '@oro_image_optimization.configurator.provider.hash_provider'
+            - '@oro_image_optimization.url_generator.inner'
+
+    oro_image_optimization.event_listener.processors_configuration_listener:
+        class: Oro\Bundle\ImageOptimizationBundle\EventListener\ProcessorsConfigurationListener
+        arguments:
+            - '@session'
+            - '@translator'
+        tags:
+            - { name: kernel.event_listener, event: oro_config.update_after, method: onConfigUpdate }
+
+    oro_image_optimization.configurator.filter_configuration:
+        class: Oro\Bundle\ImageOptimizationBundle\Configurator\FilterConfiguration
+        decorates: liip_imagine.filter.configuration
+        # Any decorators cannot have a higher priority than specified, as this will violate backward compatibility.
+        decoration_priority: -255
+        arguments:
+            - '@oro_image_optimization.configurator.filter_configuration.inner'
+            - '@oro_image_optimization.configurator.provider.processors_provider'
+
+    oro_image_optimization.configurator.provider.processors_provider:
+        class: Oro\Bundle\ImageOptimizationBundle\Configurator\Provider\ProcessorsProvider
+        arguments:
+            - '@oro_config.global'
+        tags:
+            - { name: oro_featuretogle.feature, feature: post_processing_feature }
+
+    oro_image_optimization.configurator.provider.hash_provider:
+        class: Oro\Bundle\ImageOptimizationBundle\Configurator\Provider\HashProvider
+        arguments:
+            - '@oro_image_optimization.configurator.provider.processors_provider'
+            - '@oro_image_optimization.configurator.filter_configuration'
+            - '@oro_image_optimization.configurator.filter_configuration.inner'
+
+    oro_image_optimization.checker.voter.post_processing_voter:
+        class: 'Oro\Bundle\ImageOptimizationBundle\Checker\Voter\PostProcessingVoter'
+        arguments:
+            - '@oro_config.global'
+        tags:
+            - { name: oro_featuretogle.voter, priority: 10 }
+
+    oro_image_optimization.checker.voter.post_processors_voter:
+        class: 'Oro\Bundle\ImageOptimizationBundle\Checker\Voter\PostProcessorsVoter'
+        arguments:
+            - '@logger'
+            - '%liip_imagine.jpegoptim.binary%'
+            - '%liip_imagine.pngquant.binary%'
+        tags:
+            - { name: oro_featuretogle.voter, priority: 10 }
