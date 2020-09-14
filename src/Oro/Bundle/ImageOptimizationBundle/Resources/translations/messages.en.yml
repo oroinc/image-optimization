@@ -1,0 +1,18 @@
+oro:
+    image_optimization:
+        config:
+            feature:
+                processors:
+                    label: Image processors
+                    description: Image settings feature allow you to change the image quality from configuration
+                processing:
+                    label: Image processing
+                    description: Allows to enable or disable post processing
+            image_processors_settings:
+                label: Image Processing
+            png_quality: PNG resize quality (%)
+            png_preserve_quality: Preserve quality
+            png_minimize_file_size: Minimize file size
+            jpeg_quality: JPEG resize quality (%)
+            quality_tooltip: Modification of the value may cause temporary storefront slow-down until all product images are resized.
+            quality_notify: Modification of the default value may cause temporary storefront slow-down until all product images are resized. The changes on the product listing page will not be applied immediately and will require manual start of the search re-index. Make sure that the harddrive has at least 50% space available as the resized images will be stored alongside the existing ones.

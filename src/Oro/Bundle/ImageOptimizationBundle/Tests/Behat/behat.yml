@@ -1,0 +1,20 @@
+oro_behat_extension:
+  elements:
+    JPEG resize quality (%):
+      selector:
+        type: 'xpath'
+        locator: '//input[contains(@name, "attachment_settings[oro_image_optimization___jpeg_quality][value]")]'
+
+    PNG resize quality (%):
+      selector:
+        type: 'xpath'
+        locator: '//select[contains(@name, "oro_image_optimization___png_quality")]'
+
+  suites:
+    OroImageOptimizationBundle:
+      contexts:
+        - Oro\Bundle\TestFrameworkBundle\Tests\Behat\Context\OroMainContext
+        - OroFormBundle::FormContext
+        - OroConfigBundle::FeatureContext
+      paths:
+        - '@OroImageOptimizationBundle/Tests/Behat/Features'
