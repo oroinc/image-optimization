@@ -4,6 +4,7 @@ namespace Oro\Bundle\ImageOptimizationBundle\Tests\Unit\Checker\Voter;
 
 use Oro\Bundle\FeatureToggleBundle\Checker\Voter\VoterInterface;
 use Oro\Bundle\ImageOptimizationBundle\Checker\Voter\PostProcessorsVoter;
+use Oro\Bundle\ImageOptimizationBundle\Tests\Unit\CheckProcessorsTrait;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -11,16 +12,19 @@ use Psr\Log\LoggerInterface;
  */
 class PostProcessorsVoterTest extends \PHPUnit\Framework\TestCase
 {
+    use CheckProcessorsTrait;
+
+    /** @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface  */
     private $logger;
 
     protected function setUp(): void
     {
+        $this->checkProcessors();
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->logger
             ->expects($this->never())
             ->method('log');
     }
-
 
     public function testVoteWithAnyFeature(): void
     {
