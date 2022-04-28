@@ -1,5 +1,8 @@
 # OroImageOptimizationBundle
 
+**⚠️ Since v4.2 this functionality is a part of OroPlatform, and the extension is not needed.**
+
+
 OroImageOptimizationBundle enables an administrator to control the quality of images using the UI, thereby reducing the size of images in storage.
 
 ## Configure Processors
